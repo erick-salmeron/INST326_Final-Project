@@ -38,7 +38,10 @@ class Movie:
             actors (list): A list of actors in the movie
 
         """
-        return
+        self.title = title
+        self.genre = genre
+        self.summary = summary
+        self.actors = actors
     
     def extractTitles(title):
         """ Extracts movie titles from url based on if it fits the genre or actor
@@ -96,7 +99,14 @@ def userChoice():
         choice (str): The user's search preference
 
     """
-    return choice
+    while True:
+        choice = input("Would you like to search by genre or actor? Enter 'genre' or 'actor': ")
+        if choice == 'genre':
+            return choice
+        elif choice == 'actor':
+            return choice
+        else: 
+            print("Invalid choice. Please enter 'genre' or 'actor': ")
 
 def movieRecs(choice, title, genre, actor):
     """ Recommends movies based on user's choice of genre or actor
@@ -111,10 +121,31 @@ def movieRecs(choice, title, genre, actor):
         recs (list): A list of recommended movies that match the users choice
 
     """
-    return
+    if choice == 'genre':
+        recommendations = Movie.extractGenres(genre)
+
+    else:
+        recommendations = Movie.extractMovieActors(actor)
+
+    titles = []
+    for movie in recommendations:
+        titles.append(Movie.extractTitles(title))
+    
+    return recommendations
 
 def main():
     """ The main method pulls all of the methods and functions to runs the code
 
     """
     return
+
+
+# Unit Test for userChoice
+assert userChoice("genre") == "genre"
+assert userChoice("actor") == "actor"
+assert userChoice("invalid") == None
+
+# Unit Test for movieRecs
+assert movieRecs("genre", "", 'Science Fiction', '') == ["65", "Black Panther"]
+assert movieRecs("actor", "", "", "Leonardo DiCaprio") == ["Killers of the Flower Moon", "Don't Look Up", "Speed"]
+assert movieRecs("genre", "", "", "") == []
