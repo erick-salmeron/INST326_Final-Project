@@ -108,12 +108,11 @@ def userChoice():
         else: 
             print("Invalid choice. Please enter 'genre' or 'actor': ")
 
-def movieRecs(choice, title, genre, actor):
+def movieRecs(choice, genre, actor):
     """ Recommends movies based on user's choice of genre or actor
     
     Args:
         choice (str): The user's search choice of genre or actor
-        title (str): The movie title searched for
         genre (str): The movie genre searched for
         actor (str): The actor searched for
     
@@ -146,6 +145,6 @@ assert userChoice("actor") == "actor"
 assert userChoice("invalid") == None
 
 # Unit Test for movieRecs
-assert movieRecs("genre", "", 'Science Fiction', '') == ["65", "Black Panther"]
-assert movieRecs("actor", "", "", "Leonardo DiCaprio") == ["Killers of the Flower Moon", "Don't Look Up", "Speed"]
-assert movieRecs("genre", "", "", "") == []
+assert movieRecs("genre", 'Science Fiction', '') == ["65", "Black Panther"]
+assert movieRecs("actor", "", "Leonardo DiCaprio") == ["Killers of the Flower Moon", "Don't Look Up", "Speed"]
+assert movieRecs("genre", "", "") == []
