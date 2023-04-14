@@ -66,12 +66,10 @@ class Movie:
 
         """
         genre = []
-        #The following would interate through all the movies aquired by the scraper method.
-        # If an actor is found within a movie, that movie will be appended to the movie list.
         for movie in scrapeData(url):
             if movie in movie.actors:
                 genre.append(movie)
-        return movies
+        return genre
         
     
     def extractSummary(summary):
@@ -85,8 +83,6 @@ class Movie:
             
         """
         description = []
-        #The following would interate through all the movies aquired by the scraper method.
-        # If an actor is found within a movie, that movie will be appended to the movie list.
         for description in scrapeData(url):
             if summary in description.actors:
                 description.append(description)
