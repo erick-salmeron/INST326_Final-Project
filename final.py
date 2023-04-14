@@ -88,9 +88,13 @@ class Movie:
         
         Returns:
             actors (list): A list of movies that match the actor which is picked
-
         """
-        return
+        movies = []
+    
+        for movie in scrapeData(url):
+            if actors in movie.actors:
+                movies.append(movie)
+        return movies
     
 def userChoice():
     """ Prompts the user to choose their search preference of genre or actor
@@ -134,9 +138,24 @@ def movieRecs(choice, genre, actor):
 
 def main():
     """ The main method pulls all of the methods and functions to runs the code
-
     """
-    return
+     
+    userChoice = userChoice()
+
+    if userChoice =='genre':
+        genre = input('Enter a movie genre:')
+        reccomendations = Movie.extractGenres(genre)
+    else:
+        actor = input('Enter an actor/actress name:')
+        reccomendations = Movie.extractMovieActors(actor)
+
+
+    recommended_movies = movieRecs(userChoice,title, genre, actor)
+    
+
+    print('We recommend the following movies:')
+    for movie in recommended_movies:
+        print(f"{movie.title}")
 
 
 # Unit Test for userChoice
@@ -145,6 +164,22 @@ assert userChoice("actor") == "actor"
 assert userChoice("invalid") == None
 
 # Unit Test for movieRecs
-assert movieRecs("genre", 'Science Fiction', '') == ["65", "Black Panther"]
-assert movieRecs("actor", "", "Leonardo DiCaprio") == ["Killers of the Flower Moon", "Don't Look Up", "Speed"]
-assert movieRecs("genre", "", "") == []
+assert movieRecs("genre", "", 'Science Fiction', '') == ["65", "Black Panther"]
+assert movieRecs("actor", "", "", "Leonardo DiCaprio") == ["Killers of the Flower Moon", "Don't Look Up", "Speed"]
+assert movieRecs("genre", "", "", "") == []
+
+
+#Test Function/Unit test for extractMovieActors
+def test_extractMovieActors():
+    #Instances of movies
+    movie1 = Movie("The Dark Knight", "Action", "Batman fights crime in Gotham City", ["Christian Bale", "Heath Ledger"])
+    movie2 = Movie("Interstellar", "Sci-Fi", "A team of astronauts travel through a wormhole", ["Matthew McConaughey", "Anne Hathaway"])
+    movie3 = Movie("The Prestige", "Drama", "Two magicians engage in a competitive rivalry", ["Christian Bale", "Hugh Jackman"])
+    movie4 = Movie("Inception", "Action", "A thief steals corporate secrets through dream-sharing technology", ["Leonardo DiCaprio", "Tom Hardy"])
+    
+    allMovies = [movie1, movie2, movie3, movie4]
+
+
+    assert Movie.extractMovieActors("Christian Bale", allMovies) == [movie1, movie3]
+
+    assert Movie.extractMovieActors("Angelina Jolie", allMovies) == []
