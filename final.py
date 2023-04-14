@@ -65,8 +65,14 @@ class Movie:
             genre (list): A list of movies that have the same genre searched for 
 
         """
-    
-        return
+        genre = []
+        #The following would interate through all the movies aquired by the scraper method.
+        # If an actor is found within a movie, that movie will be appended to the movie list.
+        for movie in scrapeData(url):
+            if movie in movie.actors:
+                genre.append(movie)
+        return movies
+        
     
     def extractSummary(summary):
         """ Extracts movie summaries from url
@@ -78,7 +84,13 @@ class Movie:
             summary (str): The summary of the movie
             
         """
-        return
+        description = []
+        #The following would interate through all the movies aquired by the scraper method.
+        # If an actor is found within a movie, that movie will be appended to the movie list.
+        for description in scrapeData(url):
+            if summary in description.actors:
+                description.append(description)
+        return description
 
     def extractMovieActors(actors):
         """ Extracts the actors in the movie from url parsed
