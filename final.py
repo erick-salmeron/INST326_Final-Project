@@ -67,7 +67,7 @@ class Movie:
         """
         genre = []
         for movie in scrapeData(url):
-            if movie in movie.actors:
+            if title in movie.title:
                 genre.append(movie)
         return genre
         
@@ -82,11 +82,11 @@ class Movie:
             summary (str): The summary of the movie
             
         """
-        description = []
+        descriptions = []
         for description in scrapeData(url):
-            if summary in description.actors:
-                description.append(description)
-        return description
+            if summary in description.summary:
+                descriptions.append(description)
+        return descriptions
 
     def extractMovieActors(actors):
         """ Extracts the actors in the movie from url parsed
@@ -191,3 +191,8 @@ def test_extractMovieActors():
     assert Movie.extractMovieActors("Christian Bale", allMovies) == [movie1, movie3]
 
     assert Movie.extractMovieActors("Angelina Jolie", allMovies) == []
+
+#Unit Test for extractGenres
+assert extractGenres(Genre) == 'Horror'
+#Unit Test for extractSummary
+assert extractSummary(summary) == "A thief steals corporate secrets through dream-sharing technology"
