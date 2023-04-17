@@ -8,6 +8,7 @@ Purpose: Having trouble finding a movie to watch? Use this program that
 import requests
 import unittest
 from bs4 import BeautifulSoup
+
 def scrapeData(url):
     """ Scrape data from website and return movie data
 
@@ -17,11 +18,12 @@ def scrapeData(url):
     Returns:
         data (list): A list of movie data extracted from the website
     """
-    resp = requests.get(url) #gets the specified url using requests
-    s = BeautifulSoup(resp.content, 'html.parser') #creates BeautifulSoup obj from the content of resp
+
+    resp = requests.get(url) 
+    s = BeautifulSoup(resp.content, 'html.parser') 
     titles = []
     genres = []
-    descrips = [] #empty lists for all of the movie attributes
+    descrips = [] 
     actors = []
 
 class Movie:
@@ -60,10 +62,11 @@ class Movie:
             titles (list): A list of movie titles that fit the genre or actor searched for
 
         """
-        titles = [] #empty list of movie titles
-        for t in s.select('.Movie Title a'):#uses for loop to see which elements have saame CSS selector
-            titles.append(t.get_text()) #extracts the text content and then appends it to the titles list
-         return titles #eturns the list
+        
+        titles = [] 
+        for t in s.select('.Movie Title a'):
+            titles.append(t.get_text()) 
+        return titles 
 
     def extractGenres(genre):
         """ Extracts movies with same genres from a url
@@ -206,7 +209,7 @@ assert extractGenres(Genre) == 'Horror'
 #Unit Test for extractSummary
 assert extractSummary(summary) == "A thief steals corporate secrets through dream-sharing technology"
 
-class testScrapeMovies(unittest.TestCase):    #this text checks if the method returns empty lists for actors, titles, etc and also checks if the HTTP requesr was successful
+class testScrapeMovies(unittest.TestCase): 
     def testScrapeMovies(self):
         url='https://www.themoviedb.org/?language=en-US'
         s=scrape_movies(url)
@@ -232,7 +235,7 @@ class testgetMovieTitles(unittest.TestCase):
             </a>
         </div>
         '''
-        s=BeautifulSoup(htmlStructure,'html.parser')  #parses mock html structure provided above
-        movieTitles=getMovieTitles(s) #calls function
-        expected=['Movie 1', 'Movie 2']  #expected data that was extracted
-        self.assertEqual(movieTitles,expected) #compares if expected and actual output match
+        s=BeautifulSoup(htmlStructure,'html.parser')
+        movieTitles=getMovieTitles(s) 
+        expected=['Movie 1', 'Movie 2'] 
+        self.assertEqual(movieTitles,expected) 
