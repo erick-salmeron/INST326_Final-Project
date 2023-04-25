@@ -9,22 +9,14 @@ import requests
 import unittest
 from bs4 import BeautifulSoup
 
-def scrapeData(url):
-    """ Scrape data from website and return movie data
-
-    Args:
-        url (str): The website URL that is being scraped
-
-    Returns:
-        data (list): A list of movie data extracted from the website
-    """
-
-    resp = requests.get(url) 
-    s = BeautifulSoup(resp.content, 'html.parser') 
-    titles = []
-    genres = []
-    descrips = [] 
-    actors = []
+def scrape_movies(url):
+    resp = requests.get(url)
+    s = BeautifulSoup(resp.content, 'html.parser')
+    titles = [t.get_text() for t in s.select('.title a')]
+    genres = [g.get_text() for g in s.select('.genre')]
+    descrips = [d.get_text() for d in s.select('.description')]
+    actors = [a.get_text() for a in s.select('.actors')]
+    return resp,s,titles, genres, descrips, actors
 
 class Movie:
     """ A Movie class that stores data for a particular movie
@@ -62,11 +54,10 @@ class Movie:
             titles (list): A list of movie titles that fit the genre or actor searched for
 
         """
-        
-        titles = [] 
-        for t in s.select('.Movie Title a'):
-            titles.append(t.get_text()) 
-        return titles 
+    titles = []  # empty list of movie titles
+    for t in s.select('.Movie.Title a'):  # uses for loop to see which elements have same CSS selector
+        titles.append(t.get_text().strip())  # extracts the text content and then appends it to the titles list
+    return titles  # returns the list
 
     def extractGenres(genre):
         """ Extracts movies with same genres from a url
@@ -209,17 +200,17 @@ assert extractGenres(Genre) == 'Horror'
 #Unit Test for extractSummary
 assert extractSummary(summary) == "A thief steals corporate secrets through dream-sharing technology"
 
-class testScrapeMovies(unittest.TestCase): 
+class testScrapeMovies(unittest.TestCase):
+    # this test checks if the method returns empty lists for actors, titles, etc and also checks if the HTTP request was successful
     def testScrapeMovies(self):
-        url='https://www.themoviedb.org/?language=en-US'
-        s=scrape_movies(url)
-        self.assertIsInstance(s,BeautifulSoup)
-        self.assertEqual(len(s.titles), 0)
-        self.assertEqual(len(s.genres), 0)
-        self.assertEqual(len(s.descrips), 0)
-        self.assertEqual(len(s.actors), 0)
-        self.assertTrue(len(s.resp.content) > 0)
-
+        url = 'https://www.imdb.com/chart/top'
+        resp,s, titles, genres, descrips, actors = scrape_movies(url)
+        self.assertIsInstance(s, BeautifulSoup)
+        self.assertEqual(len(titles), 0)
+        self.assertEqual(len(genres), 0)
+        self.assertEqual(len(descrips), 0)
+        self.assertEqual(len(actors), 0)
+        self.assertTrue(resp.ok)
 
 class testgetMovieTitles(unittest.TestCase):
     def testMovieTitles(self):
@@ -235,7 +226,7 @@ class testgetMovieTitles(unittest.TestCase):
             </a>
         </div>
         '''
-        s=BeautifulSoup(htmlStructure,'html.parser')
-        movieTitles=getMovieTitles(s) 
-        expected=['Movie 1', 'Movie 2'] 
-        self.assertEqual(movieTitles,expected) 
+        s = BeautifulSoup(htmlStructure, 'html.parser')  # parses mock html structure provided above
+        movieTitles = getMovieTitles(s)  # calls function
+        expected = ['Movie 1', 'Movie 2']  # expected data that was extracted
+        self.assertEqual(movieTitles, expected)  # compares if expected and actual output match
