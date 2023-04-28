@@ -224,3 +224,8 @@ assert Movie.userChoice() == {"genre": "action", "actor": "Keanu Reeves"}
 assert Movie.movieRecs(genre = "horror", actor = "Jenna Ortega") == "Scream VI"
 assert Movie.movieRecs(genre = "comedy", actor = "Steven Yeun") == "BEEF"
 assert Movie.movieRecs(genre = "action", actor = "Keanu Reeves") == "John Wick: Chapter 4"
+
+"""Unit Test for extractGenres"""
+assert Movie.extractGenres('genre') == 'Horror'
+"""Unit Test for extractSummary"""
+assert Movie.extractSummary('summary') == "A twisted tale of two estranged sisters whose reunion is cut short by the rise of flesh-possessing demons, thrusting them into a primal battle for survival as they face the most nightmarish version of family imaginable."
