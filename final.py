@@ -189,6 +189,22 @@ if __name__ == '__main__':
     main()
 
 
+"""Unit test for extractMovieActors"""
+def test_extractMovieActors():
+    #Instances of movies
+    movie1 = Movie("The Dark Knight", "Action", "Batman fights crime in Gotham City", ["Christian Bale", "Heath Ledger"])
+    movie2 = Movie("Interstellar", "Sci-Fi", "A team of astronauts travel through a wormhole", ["Matthew McConaughey", "Anne Hathaway"])
+    movie3 = Movie("The Prestige", "Drama", "Two magicians engage in a competitive rivalry", ["Christian Bale", "Hugh Jackman"])
+    movie4 = Movie("Inception", "Action", "A thief steals corporate secrets through dream-sharing technology", ["Leonardo DiCaprio", "Tom Hardy"])
+    #List containing the top movies
+    allMovies = [movie1, movie2, movie3, movie4]
+
+    #ASSERTIONS
+    # Test that movies with the correct actor are returned
+    assert extractMovieActors("Christian Bale", allMovies) == [movie1, movie3]
+    # Test 2  no movies are returned when the actor is not found
+    assert extractMovieActors("Angelina Jolie", allMovies) == []
+
 """Unit test for testscrapeData"""
 
 class TestScrapeData(unittest.TestCase):
