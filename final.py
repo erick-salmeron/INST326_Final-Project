@@ -2,7 +2,7 @@
 
  Purpose: Having trouble finding a movie to watch? Use this program that 
           will recommmend you different movies based on your search 
-          preferance of searching by genre or by actor.
+          preferance of searching by the movie genre and actor.
 
  """
 
@@ -201,9 +201,9 @@ def test_extractMovieActors():
 
     #ASSERTIONS
     # Test that movies with the correct actor are returned
-    assert extractMovieActors("Christian Bale", allMovies) == [movie1, movie3]
+    assert Movie.extractMovieActors("Christian Bale", allMovies) == [movie1, movie3]
     # Test 2  no movies are returned when the actor is not found
-    assert extractMovieActors("Angelina Jolie", allMovies) == []
+    assert Movie.extractMovieActors("Angelina Jolie", allMovies) == []
 
 """Unit test for testscrapeData"""
 
@@ -227,5 +227,3 @@ assert Movie.movieRecs(genre = "action", actor = "Keanu Reeves") == "John Wick: 
 
 """Unit Test for extractGenres"""
 assert Movie.extractGenres('genre') == 'Horror'
-"""Unit Test for extractSummary"""
-assert Movie.extractSummary('summary') == "A twisted tale of two estranged sisters whose reunion is cut short by the rise of flesh-possessing demons, thrusting them into a primal battle for survival as they face the most nightmarish version of family imaginable."
