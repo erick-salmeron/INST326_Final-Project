@@ -196,13 +196,10 @@ def test_extractMovieActors():
     movie2 = Movie("Interstellar", "Sci-Fi", "A team of astronauts travel through a wormhole", ["Matthew McConaughey", "Anne Hathaway"])
     movie3 = Movie("The Prestige", "Drama", "Two magicians engage in a competitive rivalry", ["Christian Bale", "Hugh Jackman"])
     movie4 = Movie("Inception", "Action", "A thief steals corporate secrets through dream-sharing technology", ["Leonardo DiCaprio", "Tom Hardy"])
-    #List containing the top movies
+
     allMovies = [movie1, movie2, movie3, movie4]
 
-    #ASSERTIONS
-    # Test that movies with the correct actor are returned
     assert Movie.extractMovieActors("Christian Bale", allMovies) == [movie1, movie3]
-    # Test 2  no movies are returned when the actor is not found
     assert Movie.extractMovieActors("Angelina Jolie", allMovies) == []
 
 """Unit test for testscrapeData"""
@@ -214,16 +211,17 @@ class TestScrapeData(unittest.TestCase):
         self.assertTrue(all(isinstance(movie,Movie) for movie in m))
         self.assertEqual(len(m,50))
 
-"""Unit test for userChoice:"""
-assert Movie.userChoice() == {"genre": "horror", "actor": "Jenna Ortega"}
-assert Movie.userChoice() == {"genre": "comedy", "actor": "Steven Yeun"}
-assert Movie.userChoice() == {"genre": "action", "actor": "Keanu Reeves"}
+class test_other_functions:
+    """Unit test for userChoice:"""
+    assert Movie.userChoice() == {"genre": "horror", "actor": "Jenna Ortega"}
+    assert Movie.userChoice() == {"genre": "comedy", "actor": "Steven Yeun"}
+    assert Movie.userChoice() == {"genre": "action", "actor": "Keanu Reeves"}
 
 
-"""Unit test for movieRecs"""
-assert Movie.movieRecs(genre = "horror", actor = "Jenna Ortega") == "Scream VI"
-assert Movie.movieRecs(genre = "comedy", actor = "Steven Yeun") == "BEEF"
-assert Movie.movieRecs(genre = "action", actor = "Keanu Reeves") == "John Wick: Chapter 4"
+    """Unit test for movieRecs"""
+    assert Movie.movieRecs(genre = "horror", actor = "Jenna Ortega") == "Scream VI"
+    assert Movie.movieRecs(genre = "comedy", actor = "Steven Yeun") == "BEEF"
+    assert Movie.movieRecs(genre = "action", actor = "Keanu Reeves") == "John Wick: Chapter 4"
 
-"""Unit Test for extractGenres"""
-assert Movie.extractGenres('genre') == 'Horror'
+    """Unit Test for extractGenres"""
+    assert Movie.extractGenres('genre') == 'Horror'
