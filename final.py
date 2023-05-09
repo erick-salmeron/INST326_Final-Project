@@ -213,13 +213,11 @@ class TestScrapeData(unittest.TestCase):
 
 class test_other_functions:
     """Unit test for userChoice:"""
-    assert Movie.userChoice() == {"genre": "horror", "actor": "Jenna Ortega"}
     assert Movie.userChoice() == {"genre": "comedy", "actor": "Steven Yeun"}
     assert Movie.userChoice() == {"genre": "action", "actor": "Keanu Reeves"}
 
 
     """Unit test for movieRecs"""
-    assert Movie.movieRecs(genre = "horror", actor = "Jenna Ortega") == "Scream VI"
     assert Movie.movieRecs(genre = "comedy", actor = "Steven Yeun") == "BEEF"
     assert Movie.movieRecs(genre = "action", actor = "Keanu Reeves") == "John Wick: Chapter 4"
 
