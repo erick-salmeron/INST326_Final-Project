@@ -176,7 +176,7 @@ def main():
         print (str): The recommended movies are printed
 
     """
-    print("\nTo run the progrm enter a genre such as 'Action' and a actor such as 'Chris Evans' or 'Action' and 'Leonardo DiCaprio\n")
+    print("\nTo run the progrm enter a genre such as 'Action' and a actor such as 'Chris Evans' or 'Action' and 'Leonardo DiCaprio")
     print("Once the program has run once, please run it again if you would like to choose a different genre or actor\n")
 
     genre, actor = Movie.userChoice()
